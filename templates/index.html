@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Typing test</title>
+<style type="text/css">
+  html,body{ height:100%; }
+  body{ background:#4A90E2; align-items:center; }
+
+  textarea{  
+    display: block;
+    box-sizing: padding-box;
+    overflow: hidden;
+
+    padding: 10px;
+    width: 250px;
+    font-size: 14px;
+    margin: 50px auto;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px rgba(black, .3);
+    border: 0;
+  }
+  #test
+  {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+</style>
+</head>
+<body onkeypress="showKeyPress(event);">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script>
+    $(document).on({
+      "contextmenu": function(e) {
+          // Stop the context menu
+          e.preventDefault();
+      },      
+  });
+
+  </script>
+  <center>
+  <h1>Simple Typing Test</h1>
+  <p>Can you type the words in less than 5 Seconds, Press the button before and get started.</p>
+  
+  <button type="button" class="btn btn-primary" onclick="typetest()">Start</button>
+  <br>
+  <div id="test" style="max-width:650px"></div>
+  <textarea readonly id="testarea" rows="100" cols="500" style="width: 820px; height: 78px;" spellcheck="false">
+  </textarea>
+  </center>
+  <script type="text/javascript">
+    var parag="";
+    var startDate = new Date();
+    var pos=0;
+    function typetest(){
+      $.ajax({
+        type: "GET",
+        url: "/words",
+        success: function(data){
+          document.getElementsByTagName("button")[0].hidden=true;
+          var i;
+          for (i = 0; i < data.order.length; i++) {
+            var temp = document.createElement("span");
+            temp.innerHTML=data.words[i]+" ";
+            parag+=temp.innerHTML;
+            temp.style.order=data.order[i];
+            document.getElementById("test").appendChild(temp);
+          }
+        },
+        error: function(error){
+            console.log("Error:");
+            console.log(error);
+        }
+      });
+    }
+    function showKeyPress(evt) {
+      if(pos==parag.length-1 && parag.length>1){
+        if((new Date().getTime() - startDate.getTime()) / 1000 < 5){
+          alert('{% include "flag.html"%}');
+        }
+        else{
+          alert("Too Slow");
+        }
+      }else if(parag.length>1){
+        if(parag[pos]==String.fromCharCode(evt.charCode)){
+          document.getElementById("testarea").value+=parag[pos];
+          pos++;
+        }else{
+          alert("Wrong Character");
+        }
+      }
+    }
+  </script>
+</body>
+</html>
