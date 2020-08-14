@@ -25,7 +25,7 @@ SECRET_KEY = 'v$^3^_lex1cqdy84(xiys1ag=cqjc^)kdq!t&wcz=ps*im0-=t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*","simpletypingtest.herokuapp.com"]
 
 
 # Application definition
