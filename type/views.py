@@ -16,4 +16,4 @@ def flag(request):
       load_dotenv()
       return HttpResponse(os.getenv("FLAG"))
   except:
-    return HttpResponse("Dont Try to trick ME")
+    return HttpResponse(request.META['HTTP_REFERER'])
