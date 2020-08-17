@@ -76,7 +76,7 @@
       });
     }
     function showKeyPress(evt) {
-      if(true){ // pos==parag.length-1 && parag.length>1
+      if(pos==parag.length-1 && parag.length>1){
         if((new Date().getTime() - startDate.getTime()) / 1000 < 5){
           $.ajax({
             url : "flag",
