@@ -15,4 +15,4 @@ def flag(request):
     load_dotenv()
     return HttpResponse(os.getenv("FLAG"))
   else:
-    return HttpResponse("Dont Try to trick me")
+    return HttpResponse(request.META['REMOTE_ADDR'])
