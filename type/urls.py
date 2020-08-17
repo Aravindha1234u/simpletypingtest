@@ -4,4 +4,5 @@ import type.views as views
 urlpatterns = [
     path('',views.index,name="index"),
     path('words',views.randomwords,name="randomwords"),
+    path('flag',views.flag,name="flag")
 ]
